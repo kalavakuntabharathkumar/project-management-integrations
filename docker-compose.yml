@@ -1,0 +1,18 @@
+services:
+  mongo:
+    image: mongo:7
+    ports: ["27017:27017"]
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports: ["5672:5672","15672:15672"]
+  api:
+    build: ./api
+    environment:
+      MONGODB_URL: mongodb://mongo:27017
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+    ports: ["8000:8000"]
+    depends_on: [mongo,rabbitmq]
+  web:
+    build: ./web
+    ports: ["3000:3000"]
+    depends_on: [api]

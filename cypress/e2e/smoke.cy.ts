@@ -1,0 +1,1 @@
+describe('project suite',()=>{it('loads the application',()=>{cy.visit('/');cy.contains('Project Management Suite')})})
